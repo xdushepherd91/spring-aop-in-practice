@@ -4,9 +4,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="person" class="com.xdushepherd.spring.aop.getting.startted.Person">
+    <bean id="person" class="com.xdushepherd.spring.aop.introduction.Person">
         <constructor-arg type="String" value="wangqianyi"/>
         <constructor-arg type="Integer" value="12"/>
     </bean>
 
+    <bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyTargetClass" value="true"/>
+        <property name="interceptorNames" value="advice"/> <!--如果用多种增强方式,value的值使用逗号(,)分割-->
+        <property name="target" ref="dosome"/>
+    </bean>
+
+    <bean id="advice" class="com.xdushepherd.spring.aop.factory.bean.AroundProxyAdvice"/>
+
+    <bean id="dosome" class="com.xdushepherd.spring.aop.factory.bean.DoSomeServiceImpl"/>
 </beans>
