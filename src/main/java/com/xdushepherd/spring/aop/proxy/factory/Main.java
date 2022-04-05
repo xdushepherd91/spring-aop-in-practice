@@ -1,5 +1,7 @@
 package com.xdushepherd.spring.aop.proxy.factory;
 
+import org.springframework.aop.framework.ProxyFactory;
+
 /**
  * @author wangqianyi03
  * @date 2022/4/5 16:34
@@ -7,6 +9,11 @@ package com.xdushepherd.spring.aop.proxy.factory;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(111);
+        ProxyFactory proxyFactory = new ProxyFactory();
+        proxyFactory.addAdvice(new AccessLogAdvice());
+        proxyFactory.addInterface(IOrderService.class);
+        proxyFactory.setTarget(new DefaultOrderService());
+        IOrderService proxy = (IOrderService) proxyFactory.getProxy();
+        proxy.createOrder(1L, 2L);
     }
 }
